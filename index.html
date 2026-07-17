@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OstoVet Metabolic Application</title>
+    <title>OstoVet Metabolic Auditor</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
@@ -260,8 +260,8 @@
             // Calculate Intake (Dietary)
             const dietCa = (conc * 8) + (fodder * 2.5);
             
-            // Calculate Absorption (Max 45% bio-availability of basic feed)
-            const abs = dietCa * 0.45;
+            // Calculate Absorption (Max 35% bio-availability of basic feed)
+            const abs = dietCa * 0.35;
             const gap = req - abs;
             
             document.getElementById('req-ca').innerText = req.toFixed(1) + 'g';
@@ -315,13 +315,13 @@
             }
             
             const msg = encodeURIComponent(
-                `*🩺 OstoVet Digital application*\n\n` +
+                `*🩺 OstoVet Digital Audit Report*\n\n` +
                 `*Status:* ${gapStr}\n` +
                 `*Total Blood Demand:* ${req}\n` +
                 `*Actual Absorption:* ${abs}\n` +
                 feedWarning +
-                `\n*Science Note:* Cheap calcium powders fail to reach the bloodstream because a cow can only absorb ~45% of crude feed minerals.\n\n` +
-                `*Recommendation:* Start OstoVet and Vimeral Forte Liquid today. Calcium Nahi, OstoVet!`
+                `\n*Science Note:* Cheap calcium powders fail to reach the bloodstream because a cow can only absorb ~35% of crude feed minerals.\n\n` +
+                `*Recommendation:* Start OstoVet Liquid today. Calcium Nahi, OstoVet!`
             );
             window.open(`https://api.whatsapp.com/send?text=${msg}`);
         }
@@ -348,7 +348,7 @@
                     try {
                         await navigator.share({
                             title: 'OstoVet Metabolic Report',
-                            text: 'Please find the attached OstoVet Calcium Application Report.',
+                            text: 'Please find the attached OstoVet Calcium Audit Report.',
                             files: [file]
                         });
                     } catch (shareError) {
